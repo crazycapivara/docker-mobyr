@@ -1,0 +1,20 @@
+version: "2"
+
+services:
+  minicran:
+    image: crazycapivara/minicran
+    volumes:
+      - ./scripts:/scripts
+      - ./repo:/miniCRAN
+    command: r /scripts/create_repo.R 
+  crany:
+    image: nginx:alpine
+    ports:
+      - "6080:80"
+    volumes:
+      - ./repo:/usr/share/nginx/html
+  rstudio:
+    image: rocker/rstudio
+    ports:
+      - "6767:8787"
+
